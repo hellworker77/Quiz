@@ -16,7 +16,6 @@ public class ApplicationContext : IdentityDbContext<User,
     IdentityRoleClaim<Guid>,
     IdentityUserToken<Guid>>
 {
-    public DbSet<Answer>? Answers { get; set; }
     public DbSet<Question>? Questions { get; set; }
     public DbSet<Test>? Tests { get; set; }
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)

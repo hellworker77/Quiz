@@ -28,9 +28,6 @@ public class DbInitializer : IDbInitializer
         _context.Tests?.AddRange(FakeData.Tests);
         _context.SaveChanges();
 
-        _context.Answers?.AddRange(FakeData.Answers);
-        _context.SaveChanges();
-
         _context.Questions?.AddRange(FakeData.Questions);
         _context.SaveChanges();
     }

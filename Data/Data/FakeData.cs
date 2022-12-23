@@ -1,11 +1,18 @@
 ﻿using Entities.Entity;
 using Entities.Identity;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
 namespace DataAccessLayer.Data;
 
 public static class FakeData
 {
+    private static ICollection<string> Answers = new List<string>
+    {
+        "answer 1",
+        "answer 2",
+        "answer 3"
+    };
     public static ICollection<IdentityRole<Guid>> Roles = new List<IdentityRole<Guid>>
     {
         new IdentityRole<Guid>
@@ -69,41 +76,26 @@ public static class FakeData
             Description = "description",
         }
     };
-    public static ICollection<Answer> Answers = new List<Answer>
-    {
-        new Answer
-        {
-            Title = "a1"
-        },
-        new Answer
-        {
-            Title = "a2"
-        },
-        new Answer
-        {
-            Title = "a3"
-        }
-    };
     public static ICollection<Question> Questions = new List<Question>
     {
         new Question
         {
             Title = "Title 1",
-            Answers = Answers.ToList(),
+            AnswersAsJson = JsonConvert.SerializeObject(Answers),
             CorrectAnswer = Answers.First(),
             Test = Tests.First()
         },
         new Question
         {
             Title = "Title 1",
-            Answers = Answers.ToList(),
+            AnswersAsJson = JsonConvert.SerializeObject(Answers),
             CorrectAnswer = Answers.First(),
             Test = Tests.Last()
         },
         new Question
         {
             Title = "Title 1",
-            Answers = Answers.ToList(),
+            AnswersAsJson = JsonConvert.SerializeObject(Answers),
             CorrectAnswer = Answers.First(),
             Test = Tests.Last()
         },
