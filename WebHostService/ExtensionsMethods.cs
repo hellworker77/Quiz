@@ -13,6 +13,7 @@ public static class ExtensionsMethods
 
         services.AddAuthentication(options =>
         {
+            options.DefaultScheme = "Bearer";
             options.DefaultAuthenticateScheme = "Bearer";
             options.DefaultChallengeScheme = "Bearer";
         }).AddJwtBearer(options =>
@@ -21,6 +22,8 @@ public static class ExtensionsMethods
             options.RequireHttpsMetadata = false;
             options.Audience = "api";
         });
+
+        services.AddAuthentication();
     }
     public static void DbInitialize(this IApplicationBuilder app)
     {

@@ -1,6 +1,7 @@
 using DataAccessLayer.Abstraction.Interfaces;
 using DataAccessLayer.Data;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace WebHostService;
 public class Program
@@ -13,7 +14,11 @@ public class Program
         builder.Services.AddControllers();
 
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+
+        
+        builder.Services.AddSwaggerGenWithAuth(builder.Configuration);
+        builder.Services.ConfigureAuthService(builder.Configuration);
+
 
         var migrationFolder = typeof(Program).Assembly.FullName;
         builder.Services.AddDbContext<ApplicationContext>(options =>
@@ -33,14 +38,23 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger QUIZ");
+                options.DocExpansion(DocExpansion.List);
+                options.OAuthClientId("Api");
+                options.OAuthClientSecret("client_secret");
+            });
             app.DbInitialize();
         }
 
+        app.UseRouting();
+
         app.UseHttpsRedirection();
 
-        app.UseAuthorization();
+        app.UseAuthentication();
 
+        app.UseAuthorization();
 
         app.MapControllers();
 
