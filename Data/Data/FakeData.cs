@@ -16,7 +16,7 @@ public static class FakeData
     public static ICollection<IdentityRole<Guid>> Roles = new List<IdentityRole<Guid>>
     {
         new IdentityRole<Guid>
-        {  
+        {
             Id = Guid.NewGuid(),
             Name = "admin",
             NormalizedName = "admin"
@@ -100,6 +100,4 @@ public static class FakeData
             Test = Tests.Last()
         },
     };
-
-    
 }

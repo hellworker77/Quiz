@@ -15,8 +15,10 @@ public class Program
 
         builder.Services.AddEndpointsApiExplorer();
 
-        builder.Services.ConfigureAuthService(builder.Configuration);
+
         builder.Services.AddSwaggerGenWithAuth(builder.Configuration);
+        builder.Services.ConfigureAuthService(builder.Configuration);
+
 
         var migrationFolder = typeof(Program).Assembly.FullName;
         builder.Services.AddDbContext<ApplicationContext>(options =>
