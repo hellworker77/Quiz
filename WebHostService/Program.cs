@@ -15,7 +15,7 @@ public class Program
 
         builder.Services.AddEndpointsApiExplorer();
 
-        
+
         builder.Services.AddSwaggerGenWithAuth(builder.Configuration);
         builder.Services.ConfigureAuthService(builder.Configuration);
 
