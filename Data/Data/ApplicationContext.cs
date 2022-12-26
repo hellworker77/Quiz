@@ -18,6 +18,9 @@ public class ApplicationContext : IdentityDbContext<User,
 {
     public DbSet<Question>? Questions { get; set; }
     public DbSet<Test>? Tests { get; set; }
+    public DbSet<QuestionResult>? QuestionResults { get; set; }
+    public DbSet<TestResult>? TestResults { get; set; }
+
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
     {
         

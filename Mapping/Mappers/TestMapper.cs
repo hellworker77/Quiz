@@ -8,6 +8,13 @@ public class TestMapper : Profile
 {
     public TestMapper()
     {
-        CreateMap<Test, TestDto>().ReverseMap();
+        CreateMap<Test, TestDto>()
+            .ForMember(member=> member.QuestionsDto,
+            options=> options
+            .MapFrom(expression=> expression.Questions))
+            .ReverseMap()
+            .ForMember(member => member.Questions,
+                options => options
+                    .MapFrom(expression => expression.QuestionsDto));
     }
 }

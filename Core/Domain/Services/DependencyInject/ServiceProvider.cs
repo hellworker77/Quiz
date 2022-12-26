@@ -8,5 +8,6 @@ public static class ServiceProvider
     public static void ServicesProvide(this IServiceCollection services)
     {
         services.AddTransient<ITestService, TestService>();
+        services.AddScoped<IIdentityService, IdentityService>();
     }
 }

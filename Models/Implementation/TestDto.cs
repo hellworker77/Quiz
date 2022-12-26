@@ -1,9 +1,8 @@
-﻿namespace Models.Implementation;
+﻿using Models.Abstraction;
 
-public class TestDto 
+namespace Models.Implementation;
+
+public class TestDto : AbstractTestDto
 {
-    public Guid Id { get; set; }
-    public string? Name { get; set; }
-    public string? Description { get; set; }
-    public virtual IList<QuestionDto>? Questions { get; set; }
+    public virtual IList<QuestionDto>? QuestionsDto { get; set; }
 }

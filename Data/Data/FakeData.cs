@@ -7,12 +7,13 @@ namespace DataAccessLayer.Data;
 
 public static class FakeData
 {
-    private static ICollection<string> Answers = new List<string>
+    private static readonly ICollection<string> Answers = new List<string>
     {
         "answer 1",
         "answer 2",
         "answer 3"
     };
+
     public static ICollection<IdentityRole<Guid>> Roles = new List<IdentityRole<Guid>>
     {
         new IdentityRole<Guid>
@@ -74,6 +75,7 @@ public static class FakeData
         {
             Name = "test",
             Description = "description",
+            Date = DateTimeOffset.Now.AddDays(-2)
         }
     };
     public static ICollection<Question> Questions = new List<Question>
@@ -87,17 +89,59 @@ public static class FakeData
         },
         new Question
         {
-            Title = "Title 1",
+            Title = "Title 2",
             AnswersAsJson = JsonConvert.SerializeObject(Answers),
             CorrectAnswer = Answers.First(),
             Test = Tests.Last()
         },
         new Question
         {
-            Title = "Title 1",
+            Title = "Title 3",
             AnswersAsJson = JsonConvert.SerializeObject(Answers),
             CorrectAnswer = Answers.First(),
             Test = Tests.Last()
         },
+    };
+
+    public static ICollection<TestResult> TestResults = new List<TestResult>
+    {
+        new TestResult
+        {
+            User = Users.First(),
+            Name = "test",
+            Description = "description",
+            Date = DateTimeOffset.Now
+        }
+    };
+
+    public static ICollection<QuestionResult> QuestionResults = new List<QuestionResult>()
+    {
+        new QuestionResult
+        {
+            Title = "Title 1",
+            AnswersAsJson = JsonConvert.SerializeObject(Answers),
+            CorrectAnswer = Answers.First(),
+            ActualAnswer = Answers.Last(),
+            IsCorrect = false,
+            TestResult = TestResults.First()
+        },
+        new QuestionResult
+        {
+            Title = "Title 2",
+            AnswersAsJson = JsonConvert.SerializeObject(Answers),
+            CorrectAnswer = Answers.First(),
+            ActualAnswer = Answers.Last(),
+            IsCorrect = false,
+            TestResult = TestResults.First()
+        },
+        new QuestionResult
+        {
+            Title = "Title 3",
+            AnswersAsJson = JsonConvert.SerializeObject(Answers),
+            CorrectAnswer = Answers.First(),
+            ActualAnswer = Answers.Last(),
+            IsCorrect = false,
+            TestResult = TestResults.First()
+        }
     };
 }
