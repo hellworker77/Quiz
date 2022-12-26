@@ -1,11 +1,9 @@
-﻿namespace Entities.Entity;
+﻿using Entities.Entity.Abstraction;
 
-public class Question
+namespace Entities.Entity;
+
+public class Question : AbstractQuestion
 {
-    public Guid Id { get; set; }
-    public string? Title { get; set; }
-    public string? AnswersAsJson { get; set; }
-    public string? CorrectAnswer { get; set; }
     public virtual Test? Test { get; set; }
     public Guid TestId { get; set; }
 }

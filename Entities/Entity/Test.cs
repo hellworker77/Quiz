@@ -1,9 +1,8 @@
-﻿namespace Entities.Entity;
+﻿using Entities.Entity.Abstraction;
 
-public class Test
+namespace Entities.Entity;
+
+public class Test : AbstractTest
 {
-    public Guid Id { get; set; }
-    public string? Name { get; set; }
-    public string? Description { get; set; }
     public virtual ICollection<Question>? Questions { get; set; }
 }

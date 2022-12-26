@@ -10,5 +10,7 @@ public static class RepositoryProvider
         services.AddTransient<IQuestionRepository, QuestionRepository>();
         services.AddTransient<ITestRepository, TestRepository>();
         services.AddTransient<IUserRepository, UserRepository>();
+        services.AddTransient<ITestResultRepository, TestResultRepository>();
+        services.AddTransient<IQuestionResultRepository, QuestionResultRepository>();
     }
 }

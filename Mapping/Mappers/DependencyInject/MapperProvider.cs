@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Entities.Entity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Mapping.Mappers.DependencyInject;
@@ -12,6 +11,8 @@ public static class MapperProvider
         {
             options.AddProfile(new QuestionMapper());
             options.AddProfile(new TestMapper());
+            options.AddProfile(new TestResultMapper());
+            options.AddProfile(new QuestionResultMapper());
         });
 
         var mapper = mapperConfiguration.CreateMapper();

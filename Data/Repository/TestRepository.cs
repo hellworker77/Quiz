@@ -23,7 +23,10 @@ public class TestRepository : ITestRepository
     }
     public async Task<List<TestDto>> GetChunkAsync(int size, int number)
     {
-        var tests = await _dbSet.AsNoTracking().Include(x=>x.Questions).Skip(size * number).Take(size).ToListAsync();
+        var tests = await _dbSet.AsNoTracking()
+            .Include(x=>x.Questions)
+            .Skip(size * number).Take(size)
+            .ToListAsync();
 
         var testsDto = _mapper.Map<List<TestDto>>(tests);
 
@@ -32,7 +35,9 @@ public class TestRepository : ITestRepository
 
     public async Task<TestDto> GetByIdAsync(Guid id)
     {
-        var test = await _dbSet.AsNoTracking().Include(x=>x.Questions).FirstOrDefaultAsync(x => x.Id == id);
+        var test = await _dbSet.AsNoTracking()
+            .Include(x=>x.Questions)
+            .FirstOrDefaultAsync(x => x.Id == id);
 
         var testDto = _mapper.Map<TestDto>(test);
 
