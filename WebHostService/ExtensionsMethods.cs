@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Abstraction.Interfaces;
+﻿using AutoMapper;
+using DataAccessLayer.Abstraction.Interfaces;
 using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 

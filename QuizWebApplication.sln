@@ -5,17 +5,19 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicroServices", "MicroServices", "{3D24C07F-0C26-4B32-B3F6-82AE587FF276}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebHostService", "WebHostService\WebHostService.csproj", "{7D088265-411D-46A4-B6D0-D77D6FF67CBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebHostService", "WebHostService\WebHostService.csproj", "{7D088265-411D-46A4-B6D0-D77D6FF67CBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService", "IdentityService\IdentityService.csproj", "{9A7A7E49-428F-4A0C-AAFB-6B2C4A693B37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService", "IdentityService\IdentityService.csproj", "{9A7A7E49-428F-4A0C-AAFB-6B2C4A693B37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "Data\DataAccessLayer.csproj", "{A7684FEC-72B8-4059-802D-D1434E35C007}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "Data\DataAccessLayer.csproj", "{A7684FEC-72B8-4059-802D-D1434E35C007}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapping", "Mapping\Mapping.csproj", "{769AF1E4-020B-4A7E-9BEF-B664FAC9FA12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mapping", "Mapping\Mapping.csproj", "{769AF1E4-020B-4A7E-9BEF-B664FAC9FA12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{35B1DB84-5371-456C-9AB3-33B19182DE0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{35B1DB84-5371-456C-9AB3-33B19182DE0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{F180A51B-6C49-4981-BFEA-A7D10751CD06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{F180A51B-6C49-4981-BFEA-A7D10751CD06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{A765C91D-BAEC-4A5F-BF5A-A3308E9534C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{F180A51B-6C49-4981-BFEA-A7D10751CD06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F180A51B-6C49-4981-BFEA-A7D10751CD06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F180A51B-6C49-4981-BFEA-A7D10751CD06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A765C91D-BAEC-4A5F-BF5A-A3308E9534C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A765C91D-BAEC-4A5F-BF5A-A3308E9534C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A765C91D-BAEC-4A5F-BF5A-A3308E9534C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A765C91D-BAEC-4A5F-BF5A-A3308E9534C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
