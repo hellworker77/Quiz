@@ -1,5 +1,8 @@
+using Core.Domain.Services.DependencyInject;
 using DataAccessLayer.Abstraction.Interfaces;
 using DataAccessLayer.Data;
+using DataAccessLayer.Repository.DependencyInject;
+using Mapping.Mappers.DependencyInject;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
@@ -30,7 +33,9 @@ public class Program
 
         builder.Services.AddTransient<IDbInitializer, DbInitializer>();
         builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-
+        builder.Services.ServicesProvide();
+        builder.Services.RepositoriesProvide();
+        builder.Services.MappersProvide();
 
         var app = builder.Build();
 
@@ -60,5 +65,5 @@ public class Program
 
         app.Run();
     }
-    
+
 }
