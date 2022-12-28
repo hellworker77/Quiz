@@ -1,7 +1,5 @@
 ﻿using Core.Abstraction.Interfaces;
-using Entities.Entity;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.Implementation;
 
@@ -12,12 +10,9 @@ namespace WebHostService.Controllers
     public class TestController : ControllerBase
     {
         private readonly ITestService _testService;
-        private readonly IIdentityService _identityService;
-        public TestController(ITestService testService,
-            IIdentityService identityService)
+        public TestController(ITestService testService)
         {
             _testService = testService;
-            _identityService = identityService;
         }
 
         [HttpGet("chunk")]
@@ -30,26 +25,19 @@ namespace WebHostService.Controllers
         {
             return await _testService.GetByIdAsync(id);
         }
+        [Authorize(Roles = "admin")]
         [HttpPost("create")]
         public async Task CreateAsync(TestDto testDto)
         {
             await _testService.CreateAsync(testDto);
         }
-        [Authorize]
-        [HttpPost("reply")]
-        public async Task ReplyAsync(AnswerTest answerTest)
-        {
-            var userId = _identityService.GetUserIdentity();
-            if (userId != string.Empty)
-            {
-                await _testService.ReplyAsync(answerTest, Guid.Parse(userId));
-            }
-        }
+        [Authorize(Roles = "admin")]
         [HttpPut("update")]
         public async Task UpdateAsync(TestDto testDto)
         {
             await _testService.UpdateAsync(testDto);
         }
+        [Authorize(Roles = "admin")]
         [HttpDelete("delete")]
         public async Task DeleteAsync(Guid id)
         {
