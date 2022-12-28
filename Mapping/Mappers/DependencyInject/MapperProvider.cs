@@ -13,6 +13,7 @@ public static class MapperProvider
             options.AddProfile(new TestMapper());
             options.AddProfile(new TestResultMapper());
             options.AddProfile(new QuestionResultMapper());
+            options.AddProfile(new UserMapper());
         });
 
         var mapper = mapperConfiguration.CreateMapper();

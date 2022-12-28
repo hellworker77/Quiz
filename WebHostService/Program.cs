@@ -2,9 +2,13 @@ using Core.Domain.Services.DependencyInject;
 using DataAccessLayer.Abstraction.Interfaces;
 using DataAccessLayer.Data;
 using DataAccessLayer.Repository.DependencyInject;
+using Entities.Identity;
+using FluentValidation;
 using Mapping.Mappers.DependencyInject;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using Validation.Validators;
 
 namespace WebHostService;
 public class Program
@@ -33,9 +37,18 @@ public class Program
 
         builder.Services.AddTransient<IDbInitializer, DbInitializer>();
         builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+
+        builder.Services.AddDefaultIdentity<User>()
+            .AddRoles<IdentityRole<Guid>>()
+            .AddEntityFrameworkStores<ApplicationContext>()
+            .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
+            .AddUserManager<UserManager<User>>()
+            .AddDefaultTokenProviders();
+
         builder.Services.ServicesProvide();
         builder.Services.RepositoriesProvide();
         builder.Services.MappersProvide();
+        builder.Services.AddValidatorsFromAssemblyContaining<UserValidator>();
 
         var app = builder.Build();
 

@@ -21,11 +21,12 @@ public class TestResultRepository : ITestResultRepository
         _dbSet = applicationContext.Set<TestResult>();
     }
 
-    public async Task<List<TestResultDto>> GetChunkAsync(int size, int number)
+    public async Task<List<TestResultDto>> GetChunkAsync(Guid userId, int size, int number)
     {
         var testResults = await _dbSet.AsNoTracking()
             .Include(x => x.QuestionResults)
             .Include(x => x.User)
+            .Where(x=>x.UserId == userId)
             .Skip(size * number)
             .Take(size)
             .ToListAsync();
@@ -35,12 +36,12 @@ public class TestResultRepository : ITestResultRepository
         return testResultsDto;
     }
 
-    public async Task<TestResultDto> GetByIdAsync(Guid id)
+    public async Task<TestResultDto> GetByIdAsync(Guid userId, Guid id)
     {
         var testResult = await _dbSet.AsNoTracking()
             .Include(x => x.QuestionResults)
             .Include(x => x.User)
-            .FirstOrDefaultAsync(x => x.Id == id);
+            .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
 
         var testResultDto = _mapper.Map<TestResultDto>(testResult);
 
