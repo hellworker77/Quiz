@@ -18,7 +18,16 @@ public class DbInitializer : IDbInitializer
 
         _context.Roles.AddRange(FakeData.Roles);
         _context.SaveChanges();
-        
+
+        _context.MediaUsers?.AddRange(FakeData.MediaUsers);
+        _context.SaveChanges();
+
+        _context.MediaTests?.AddRange(FakeData.MediaTests);
+        _context.SaveChanges();
+
+        _context.MediaQuestions?.AddRange(FakeData.MediaQuestions);
+        _context.SaveChanges();
+
         _context.Users.AddRange(FakeData.Users);
         _context.SaveChanges();
 

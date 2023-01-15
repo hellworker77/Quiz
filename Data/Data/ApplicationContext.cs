@@ -20,7 +20,9 @@ public class ApplicationContext : IdentityDbContext<User,
     public DbSet<Test>? Tests { get; set; }
     public DbSet<QuestionResult>? QuestionResults { get; set; }
     public DbSet<TestResult>? TestResults { get; set; }
-
+    public DbSet<MediaUser>? MediaUsers { get; set; }
+    public DbSet<MediaTest>? MediaTests { get; set; }
+    public DbSet<MediaQuestion>? MediaQuestions { get; set; }
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
     {
         

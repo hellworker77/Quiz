@@ -43,30 +43,24 @@ public class UserController : ControllerBase
     }
     [Authorize]
     [HttpPut("changePassword")]
-    public async Task ChangePasswordAsync(UserDto userDto)
+    public async Task ChangePasswordAsync(string password, string oldPassword)
     {
         var userId = _identityService.GetUserIdentity();
-        if (userId == userDto.Id.ToString())
-        {
-
-            await _userService.ChangePasswordAsync(userDto);
-        }
+        await _userService.ChangePasswordAsync(Guid.Parse(userId), password, oldPassword);
     }
     [Authorize]
     [HttpPut("edit")]
-    public async Task EditAsync(UserDto userDto)
+    public async Task<IActionResult> EditAsync(string userName, string email)
     {
         var userId = _identityService.GetUserIdentity();
-        if (userId == userDto.Id.ToString())
-        {
-            await _userService.EditAsync(userDto);
-        }
+
+        return await _userService.EditAsync(Guid.Parse(userId), userName, email);
     }
     [Authorize(Roles = "admin")]
     [HttpPut("editUser")]
-    public async Task EditUserAsync(UserDto userDto)
+    public async Task<IActionResult> EditUserAsync(Guid userId, string userName, string email)
     {
-        await _userService.EditAsync(userDto);
+        return await _userService.EditAsync(userId, userName, email);
     }
     [Authorize]
     [HttpDelete("delete")]
@@ -88,4 +82,5 @@ public class UserController : ControllerBase
             await _userService.DeleteAsync(id);
         }
     }
+
 }

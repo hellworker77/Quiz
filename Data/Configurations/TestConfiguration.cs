@@ -11,5 +11,7 @@ public class TestConfiguration : IEntityTypeConfiguration<Test>
         builder.HasKey(x => x.Id);
 
         builder.HasMany(x => x.Questions).WithOne(x => x.Test).HasForeignKey(x => x.TestId);
+
+        builder.HasOne(x => x.Photo).WithMany(x => x.Tests).HasForeignKey(x => x.PhotoId);
     }
 }

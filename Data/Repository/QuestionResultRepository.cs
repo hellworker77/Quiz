@@ -25,6 +25,8 @@ public class QuestionResultRepository : IQuestionResultRepository
     {
         var questionResult = _mapper.Map<QuestionResult>(questionResultDto);
 
+        questionResult.Photo = null;
+
         await _dbSet.AddAsync(questionResult);
 
         await _applicationContext.SaveChangesAsync();

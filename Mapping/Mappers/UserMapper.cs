@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Entities.Identity;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 using Models.Implementation;
 
 namespace Mapping.Mappers;

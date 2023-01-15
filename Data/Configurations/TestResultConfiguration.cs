@@ -17,5 +17,7 @@ public class TestResultConfiguration : IEntityTypeConfiguration<TestResult>
         builder.HasOne(x => x.User)
             .WithMany(x => x.TestResults)
             .HasForeignKey(x => x.UserId);
+
+        builder.HasOne(x => x.Photo).WithMany(x => x.TestResults).HasForeignKey(x => x.PhotoId);
     }
 }

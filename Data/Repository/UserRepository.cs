@@ -29,6 +29,7 @@ public class UserRepository : IUserRepository
     {
         var user = await _dbSet.AsNoTracking()
             .Include(x => x.TestResults)
+            .Include(x => x.Photo)
             .FirstOrDefaultAsync(x => x.Id == id);
 
         var userDto = _mapper.Map<UserDto>(user);
@@ -40,6 +41,8 @@ public class UserRepository : IUserRepository
     {
         var users = await _dbSet.AsNoTracking()
             .Include(x => x.TestResults)
+            .Include(x=>x.Photo)
+            .OrderByDescending(x=>x.Rating)
             .Skip(size * number)
             .Take(size)
             .ToListAsync();
@@ -65,15 +68,32 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task UpdatePasswordAsync(Guid id, string password)
+    public async Task UpdatePasswordAsync(Guid id, string password, string oldPassword)
     {
         var userAlreadyExisted = await _dbSet.FindAsync(id);
 
         if (userAlreadyExisted != null)
         {
-            userAlreadyExisted.PasswordHash = _passwordHasher.HashPassword(userAlreadyExisted, password);
-            
-            var result = await _userManager.UpdateAsync(userAlreadyExisted);
+            var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(userAlreadyExisted,userAlreadyExisted.PasswordHash, oldPassword);
+            if (passwordVerificationResult == PasswordVerificationResult.Success)
+            {
+                userAlreadyExisted.PasswordHash = _passwordHasher.HashPassword(userAlreadyExisted, password);
+                var result = await _userManager.UpdateAsync(userAlreadyExisted);
+            }
+        }
+    }
+
+    public async Task UpdateRatingAsync(Guid userId, int value)
+    {
+        var user = await _dbSet.FindAsync(userId);
+        if (user != null)
+        {
+            user.Rating += value;
+            if (user.Rating < 0)
+            {
+                user.Rating = 0;
+            }
+            var result = await _userManager.UpdateAsync(user);
         }
     }
 

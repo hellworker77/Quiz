@@ -20,9 +20,8 @@ public class UserValidator : AbstractValidator<UserDto>
 
     private bool CheckPasswordsEquals(string? password, string? repeatPassword)
     {
-        password = password ?? Guid.NewGuid().ToString();
-        repeatPassword = repeatPassword ?? Guid.NewGuid().ToString();
+        var notNull = password != null;
 
-        return password.Equals(repeatPassword);
+        return password?.Equals(repeatPassword) ?? false || !notNull;
     }
 }

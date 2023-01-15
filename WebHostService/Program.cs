@@ -26,6 +26,18 @@ public class Program
         builder.Services.AddSwaggerGenWithAuth(builder.Configuration);
         builder.Services.ConfigureAuthService(builder.Configuration);
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("_frontend",
+                policy =>
+                {
+                    policy
+                        .WithOrigins("http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+        });
+
 
         var migrationFolder = typeof(Program).Assembly.FullName;
         builder.Services.AddDbContext<ApplicationContext>(options =>
@@ -73,6 +85,8 @@ public class Program
         app.UseAuthentication();
 
         app.UseAuthorization();
+
+        app.UseCors("_frontend");
 
         app.MapControllers();
 
