@@ -1,4 +1,6 @@
-﻿namespace Models.Implementation;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Models.Implementation;
 
 public class UserDto
 {
@@ -7,4 +9,6 @@ public class UserDto
     public string? Email { get; set; }
     public string? Password { get; set; }
     public string? RepeatPassword { get; set; }
+    public int Rating { get; set; }
+    public MediaDto? Photo { get; set; }
 }

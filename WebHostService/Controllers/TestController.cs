@@ -25,6 +25,11 @@ namespace WebHostService.Controllers
         {
             return await _testService.GetByIdAsync(id);
         }
+        [HttpGet("count")]
+        public async Task<int> GetCountAsync(Guid id)
+        {
+            return await _testService.GetCountAsync();
+        }
         [Authorize(Roles = "admin")]
         [HttpPost("create")]
         public async Task CreateAsync(TestDto testDto)

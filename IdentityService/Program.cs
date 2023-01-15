@@ -15,11 +15,11 @@ namespace IdentityService
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("_swaggerAllowOrigins",
+                options.AddPolicy("_AllowAll",
                     policy =>
                     {
                         policy
-                            .WithOrigins("https://localhost:7119")
+                            .AllowAnyOrigin()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
@@ -76,7 +76,7 @@ namespace IdentityService
 
             app.UseHttpsRedirection();
 
-            app.UseCors("_swaggerAllowOrigins");
+            app.UseCors("_AllowAll");
 
             app.UseAuthorization();
 

@@ -20,11 +20,12 @@ public class TestResultRepository : ITestResultRepository
         _mapper = mapper;
         _dbSet = applicationContext.Set<TestResult>();
     }
-
     public async Task<List<TestResultDto>> GetChunkAsync(Guid userId, int size, int number)
     {
         var testResults = await _dbSet.AsNoTracking()
-            .Include(x => x.QuestionResults)
+            .Include(x => x.QuestionResults!)
+            .ThenInclude(x=>x.Photo)
+            .Include(x=>x.Photo)
             .Include(x => x.User)
             .Where(x=>x.UserId == userId)
             .Skip(size * number)
@@ -35,11 +36,12 @@ public class TestResultRepository : ITestResultRepository
 
         return testResultsDto;
     }
-
     public async Task<TestResultDto> GetByIdAsync(Guid userId, Guid id)
     {
         var testResult = await _dbSet.AsNoTracking()
-            .Include(x => x.QuestionResults)
+            .Include(x => x.QuestionResults!)
+            .ThenInclude(x => x.Photo)
+            .Include(x => x.Photo)
             .Include(x => x.User)
             .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
 
@@ -48,9 +50,21 @@ public class TestResultRepository : ITestResultRepository
         return testResultDto;
     }
 
+    public async Task<int> GetCountAsync(Guid userId)
+    {
+        var count = _dbSet
+            .AsNoTracking()
+            .Include(x => x.User)
+            .Count(x => x.UserId == userId);
+
+        return await Task.FromResult(count);
+    }
+
     public async Task CreateAsync(TestResultDto testResultDto)
     {
         var testResult = _mapper.Map<TestResult>(testResultDto);
+
+        testResult.Photo = null;
 
         testResult.QuestionResults?.Clear();
         testResult.Date = DateTimeOffset.Now;
@@ -59,7 +73,6 @@ public class TestResultRepository : ITestResultRepository
 
         await _applicationContext.SaveChangesAsync();
     }
-
     public async Task UpdateAsync(TestResultDto testResultDto)
     {
         var testResult = _mapper.Map<Test>(testResultDto);
@@ -68,7 +81,6 @@ public class TestResultRepository : ITestResultRepository
 
         await _applicationContext.SaveChangesAsync();
     }
-
     public async Task DeleteAsync(Guid id)
     {
         var testResult = await _dbSet.FindAsync(id);

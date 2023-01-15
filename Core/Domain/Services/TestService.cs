@@ -2,7 +2,6 @@
 using DataAccessLayer.Abstraction.Interfaces;
 using FluentValidation;
 using Models.Implementation;
-using Validation.Validators;
 
 namespace Core.Domain.Services;
 
@@ -24,6 +23,13 @@ public class TestService : ITestService
     {
         return await _testRepository.GetChunkAsync(size, number);
     }
+
+    public async Task<int> GetCountAsync()
+    {
+        var count = await _testRepository.GetCountAsync();
+        return count;
+    }
+
     public async Task<TestDto> GetByIdAsync(Guid id)
     {
         return await _testRepository.GetByIdAsync(id);
@@ -33,6 +39,7 @@ public class TestService : ITestService
         var result = await _testValidator.ValidateAsync(testDto);
         if (result.IsValid)
         {
+            testDto.Stamp = GenerateStamp();
             await _testRepository.CreateAsync(testDto);
 
 #pragma warning disable CS8602 
@@ -64,6 +71,14 @@ public class TestService : ITestService
     {
         await _testRepository.DeleteAsync(id);
     }
-    
 
+    private string GenerateStamp()
+    {
+        var guid = Guid.NewGuid();
+        var stamp = Convert.ToBase64String(guid.ToByteArray());
+        stamp = stamp.Replace("=", "");
+        stamp = stamp.Replace("+", "");
+
+        return stamp;
+    }
 }

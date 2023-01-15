@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
 using DataAccessLayer.Abstraction.Interfaces;
 using DataAccessLayer.Data;
@@ -24,7 +25,9 @@ public class TestRepository : ITestRepository
     public async Task<List<TestDto>> GetChunkAsync(int size, int number)
     {
         var tests = await _dbSet.AsNoTracking()
-            .Include(x=>x.Questions)
+            .Include(x=>x.Questions!)
+            .ThenInclude(x=>x.Photo)
+            .Include(x=>x.Photo)
             .Skip(size * number).Take(size)
             .ToListAsync();
 
@@ -36,12 +39,20 @@ public class TestRepository : ITestRepository
     public async Task<TestDto> GetByIdAsync(Guid id)
     {
         var test = await _dbSet.AsNoTracking()
-            .Include(x=>x.Questions)
+            .Include(x=>x.Questions!)
+            .ThenInclude(x => x.Photo)
+            .Include(x => x.Photo)
             .FirstOrDefaultAsync(x => x.Id == id);
 
         var testDto = _mapper.Map<TestDto>(test);
 
         return testDto;
+    }
+
+    public async Task<int> GetCountAsync()
+    {
+        var count = _dbSet.AsNoTracking().Count();
+        return await Task.FromResult(count);
     }
 
     public async Task CreateAsync(TestDto testDto)

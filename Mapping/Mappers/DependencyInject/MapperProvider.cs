@@ -14,6 +14,7 @@ public static class MapperProvider
             options.AddProfile(new TestResultMapper());
             options.AddProfile(new QuestionResultMapper());
             options.AddProfile(new UserMapper());
+            options.AddProfile(new MediaMapper());
         });
 
         var mapper = mapperConfiguration.CreateMapper();

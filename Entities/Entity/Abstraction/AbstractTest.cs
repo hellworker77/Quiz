@@ -6,4 +6,5 @@ public abstract class AbstractTest
     public string? Name { get; set; }
     public string? Description { get; set; }
     public DateTimeOffset Date { get; set; }
+    public string? Stamp { get; set; }
 }
